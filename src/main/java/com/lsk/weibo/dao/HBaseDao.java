@@ -21,24 +21,24 @@ import org.apache.hadoop.hbase.filter.RowFilter;
 import org.apache.hadoop.hbase.filter.SubstringComparator;
 import org.apache.hadoop.hbase.util.Bytes;
 
-/**
- * @Description
- * @Author sikang.liu
- * @Date 2022-01-19 11:04
- */
 public class HBaseDao {
 
-    public static void publishWeibo(String uid, String content) throws IOException {
+    /**
+     * 发布微博
+     */
+    public static void publishWeiBo(String uid, String content) throws IOException {
         Connection connection = ConnectionFactory.createConnection(Constants.CONFIGURATION);
+
+        //第一部分：操作微博内容表
         Table contTable = connection.getTable(TableName.valueOf(Constants.CONTENT_TABLE));
         long ts = System.currentTimeMillis();
-
         String rowKey = uid + "_" + ts;
         Put contPut = new Put(Bytes.toBytes(rowKey));
         contPut.addColumn(Bytes.toBytes(Constants.CONTENT_TABLE_CF),
                 Bytes.toBytes("content"), Bytes.toBytes(content));
         //执行插入操作
         contTable.put(contPut);
+
         //第二部分：操作微博收件箱表
         Table relaTable = connection.getTable(TableName.valueOf(Constants.RELATION_TABLE));
         //获取当前发布微博人的fans列族数据
@@ -63,12 +63,17 @@ public class HBaseDao {
         connection.close();
     }
 
+    /**
+     * 关注用户
+     */
     public static void addAttends(String uid, String... attends) throws IOException {
         if (attends.length < 1) {
             System.out.println("请选择关注的人！");
             return;
         }
         Connection connection = ConnectionFactory.createConnection(Constants.CONFIGURATION);
+
+        //第一部分：操作用户关系表
         Table relaTable = connection.getTable(TableName.valueOf(Constants.RELATION_TABLE));
         ArrayList<Put> relaPuts = new ArrayList<>();
         Put uidPut = new Put(Bytes.toBytes(uid));
@@ -82,6 +87,7 @@ public class HBaseDao {
         relaPuts.add(uidPut);
         //执行批量插入操作
         relaTable.put(relaPuts);
+
         //第二部分：操作收件箱表
         Table contTable = connection.getTable(TableName.valueOf(Constants.CONTENT_TABLE));
         Put inboxPut = new Put(Bytes.toBytes(uid));
@@ -90,6 +96,7 @@ public class HBaseDao {
             Scan scan = new Scan(Bytes.toBytes(attend + "_"), Bytes.toBytes(attend + "|"));
             ResultScanner resultScanner = contTable.getScanner(scan);
 
+            //保证时间戳不一样
             long ts = System.currentTimeMillis();
             for (Result result : resultScanner) {
                 inboxPut.addColumn(Bytes.toBytes(Constants.INBOX_TABLE_CF), Bytes.toBytes(attend), ts++,
