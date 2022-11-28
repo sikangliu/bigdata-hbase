@@ -1,4 +1,4 @@
-package com.lsk.mr1;
+package com.lsk.hbase1.mr1;
 
 import java.io.IOException;
 import org.apache.hadoop.hbase.Cell;

@@ -1,4 +1,4 @@
-package com.lsk.hbase.table;
+package com.lsk.hbase1.table;
 
 
 import java.io.IOException;

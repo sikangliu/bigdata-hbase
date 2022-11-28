@@ -1,6 +1,6 @@
-package com.lsk.weibo.dao;
+package com.lsk.hbase1.weibo.dao;
 
-import com.lsk.weibo.contants.Constants;
+import com.lsk.hbase1.weibo.contants.Constants;
 import java.io.IOException;
 import java.util.ArrayList;
 import org.apache.hadoop.hbase.Cell;

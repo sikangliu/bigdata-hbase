@@ -1,4 +1,4 @@
-package com.lsk.mr2;
+package com.lsk.hbase1.mr2;
 
 import java.io.IOException;
 import org.apache.hadoop.hbase.client.Put;

@@ -1,8 +1,8 @@
-package com.lsk.weibo.test;
+package com.lsk.hbase1.weibo.test;
 
-import com.lsk.weibo.contants.Constants;
-import com.lsk.weibo.dao.HBaseDao;
-import com.lsk.weibo.utils.HBaseUtil;
+import com.lsk.hbase1.weibo.utils.HBaseUtil;
+import com.lsk.hbase1.weibo.contants.Constants;
+import com.lsk.hbase1.weibo.dao.HBaseDao;
 import java.io.IOException;
 
 /**

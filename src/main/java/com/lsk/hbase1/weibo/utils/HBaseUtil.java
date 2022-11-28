@@ -1,6 +1,6 @@
-package com.lsk.weibo.utils;
+package com.lsk.hbase1.weibo.utils;
 
-import com.lsk.weibo.contants.Constants;
+import com.lsk.hbase1.weibo.contants.Constants;
 import java.io.IOException;
 import org.apache.hadoop.hbase.HColumnDescriptor;
 import org.apache.hadoop.hbase.HTableDescriptor;

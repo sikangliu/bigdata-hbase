@@ -1,4 +1,4 @@
-package com.lsk.weibo.contants;
+package com.lsk.hbase1.weibo.contants;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
